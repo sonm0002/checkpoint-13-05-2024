@@ -4,10 +4,6 @@ import { useMutation, useQuery } from "@apollo/client";
 import {
 	Box,
 	Button,
-	Dialog,
-	DialogContent,
-	DialogContentText,
-	DialogTitle,
 	MenuItem,
 	TextField,
 	Typography,
@@ -16,7 +12,7 @@ import {
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Header from "@/components/Header";
+import { toast } from "react-toastify";
 
 const LatteButton = styled(Button)({
 	boxShadow: "none",
@@ -63,7 +59,6 @@ export default function Home() {
 	const isMobile = useMediaQuery("(max-width:600px)");
 	const router = useRouter();
 	const [form, setForm] = useState(defaultState);
-	const [isOpen, setIsOpen] = useState<boolean>(false);
 	console.log("form", { form });
 
 	const {
@@ -94,19 +89,24 @@ export default function Home() {
 				},
 			},
 		})
-			.then(() => console.log("Done !"))
-			.catch((e) => console.log("Error", e));
+			.then(() => toast.success("Pays crée !"))
+			.catch((e) => {
+				toast.error(`Erreur ${e}`);
+			});
 	};
 
 	useEffect(() => {
+		if (loadingCountries) {
+			toast.info("coucou");
+		}
 		if (errorCountries) {
-			console.log("error", errorCountries);
+			toast.error(`Erreur ${errorCountries}`);
 		}
 	}, [errorCountries]);
 
 	useEffect(() => {
 		if (errorContinents) {
-			console.log("error", errorContinents);
+			toast.error(`Erreur ${errorContinents}`);
 		}
 	}, [errorContinents]);
 

@@ -3,6 +3,8 @@ import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import Header from "@/components/Header";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const client = new ApolloClient({
 	uri: "http://localhost:4000/api/graphql",
@@ -14,6 +16,7 @@ function App({ Component, pageProps }: AppProps) {
 		<ApolloProvider client={client}>
 			<Header />
 			<Component {...pageProps} />
+			<ToastContainer />
 		</ApolloProvider>
 	);
 }

@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import { useQuery } from "@apollo/client";
 import { COUNTRY_BY_CODE } from "@/graphql/client";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function Country() {
 	const router = useRouter();
@@ -15,6 +16,7 @@ export default function Country() {
 	useEffect(() => {
 		if (error) {
 			console.log("error", error);
+			toast.error("Erreur lors de l'affichage du pays");
 		}
 	}, [error]);
 
