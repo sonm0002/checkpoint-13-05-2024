@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import Header from "@/components/Header";
 
 const client = new ApolloClient({
 	uri: "http://localhost:4000/api/graphql",
@@ -11,6 +12,7 @@ const client = new ApolloClient({
 function App({ Component, pageProps }: AppProps) {
 	return (
 		<ApolloProvider client={client}>
+			<Header />
 			<Component {...pageProps} />
 		</ApolloProvider>
 	);

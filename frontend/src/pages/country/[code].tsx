@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Header from "../../components/Header";
 import { useQuery } from "@apollo/client";
 import { COUNTRY_BY_CODE } from "@/graphql/client";
+import { useEffect } from "react";
 
 export default function Country() {
 	const router = useRouter();
@@ -11,9 +12,14 @@ export default function Country() {
 		variables: { code: router.query.code },
 	});
 
+	useEffect(() => {
+		if (error) {
+			console.log("error", error);
+		}
+	}, [error]);
+
 	return (
 		<>
-			<Header />
 			<Box alignContent="center" display="flex" justifyContent="center">
 				{data?.country ? (
 					<>

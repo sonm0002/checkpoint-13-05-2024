@@ -4,6 +4,10 @@ import { useMutation, useQuery } from "@apollo/client";
 import {
 	Box,
 	Button,
+	Dialog,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
 	MenuItem,
 	TextField,
 	Typography,
@@ -59,6 +63,7 @@ export default function Home() {
 	const isMobile = useMediaQuery("(max-width:600px)");
 	const router = useRouter();
 	const [form, setForm] = useState(defaultState);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 	console.log("form", { form });
 
 	const {
@@ -93,9 +98,20 @@ export default function Home() {
 			.catch((e) => console.log("Error", e));
 	};
 
+	useEffect(() => {
+		if (errorCountries) {
+			console.log("error", errorCountries);
+		}
+	}, [errorCountries]);
+
+	useEffect(() => {
+		if (errorContinents) {
+			console.log("error", errorContinents);
+		}
+	}, [errorContinents]);
+
 	return (
 		<>
-			<Header />
 			<Box p={4}>
 				<Box
 					component="form"
@@ -185,6 +201,8 @@ export default function Home() {
 										sx={{
 											backgroundColor: "#c9b9a9",
 											border: "1px solid #c9b9a9",
+											color: "white",
+											textAlign: "center",
 											borderRadius: 5,
 											flex: 1,
 										}}
